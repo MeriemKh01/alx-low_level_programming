@@ -1,21 +1,24 @@
-#include "main.h"
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
- * _strlen - returns the length of a string
- * @s: string to evaluate
+ * main - generates random valid passwords
  *
- * Return: the length of the string
+ * Return: Always 0.
  */
-int _strlen(char *s)
+int main(void)
 {
-	int i;
+	int sum = 0;
+	char c;
 
-	i = 0;
-
-	while (s[i] != '\0')
+	srand(time(NULL));
+	while (sum < 2772)
 	{
-		i++;
+		c = rand() % 94 + 33;
+		putchar(c);
+		sum += c;
 	}
-
-	return (i);
+	putchar(2772 - sum);
+	return (0);
 }
