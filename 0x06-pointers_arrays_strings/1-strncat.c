@@ -1,41 +1,52 @@
+#include <stdio.h>
 #include "main.h"
 
-/**
- *  * _strncat - Concatenates two strings using at most
- *   *            an inputted number of bytes from src.
- *    * @dest: The string to be appended upon.
- *     * @src: The string to be appended to dest.
- *      * @n: The number of bytes from src to be appended to dest.
- *       *
- *        * Return: A pointer to the resulting string dest.
- *         */
-char *_strncat(char *dest, char *src, int n)
-{
-		int index = 0, dest_len = 0;
-
-			while (dest[index++])
-						dest_len++;
-				for (index = 0; src[index] && index < n; index++)
-							dest[dest_len++] = src[index];
-					return (dest);
-}#include "main.h"
 
 /**
- *  * _strncat - Concatenates two strings using at most
- *   *            an inputted number of bytes from src.
- *    * @dest: The string to be appended upon.
- *     * @src: The string to be appended to dest.
- *      * @n: The number of bytes from src to be appended to dest.
- *       *
- *        * Return: A pointer to the resulting string dest.
- *         */
-char *_strncat(char *dest, char *src, int n)
+ * _strlen - returns the length of a string
+ *
+ * @str:a string of length to be returned
+ *
+ * Return: returns the length of a string
+ */
+int _strlen(char *str)
 {
-		int index = 0, dest_len = 0;
+        int length = 0;
 
-			while (dest[index++])
-						dest_len++;
-				for (index = 0; src[index] && index < n; index++)
-							dest[dest_len++] = src[index];
-					return (dest);
+
+        while (*str)
+        {
+                str++;
+                length++;
+        }
+        return (length);
 }
+
+
+/**
+ * _strncat - concatinates two strings
+ *
+ * @dest:destination pointer
+ *
+ * @src:pointer to a string
+ *
+ * @n:amount tot be concatenated
+ *
+ * Return: concatinated string
+ */
+char *_strncat(char *dest, char *src, int n)
+{
+        char *cat = dest + _strlen(dest);
+        int length;
+
+
+        if (n > _strlen(src) + _strlen(dest))
+                length =  _strlen(dest) + _strlen(src);
+        else
+                length = _strlen(dest) + n;
+        while (*src && n > 0)
+        {
+                *cat += *src;
+                src++;
+                cat++;
+                n--;
