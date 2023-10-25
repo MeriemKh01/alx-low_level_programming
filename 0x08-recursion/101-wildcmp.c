@@ -1,43 +1,26 @@
 #include "main.h"
-
 /**
- * _strlen_recursion - returns the length of a string
- * @s: input string
- * Return: length of s
+ * wildcmp - compares two strings and returns 1
+ * if the strings can be considered identical,
+ * otherwise return 0.
+ * @s1: the normal string
+ * @s2: the special string containing "*"
+ *
+ * Return: 1 if identical, else 0
  */
-int _strlen_recursion(char *s)
+int wildcmp(char *s1, char *s2)
 {
-	if (!*s)
-		return (0);
-	return (1 + _strlen_recursion(++s));
-}
-
-/**
- * isPalRec - helper function for is_palindrome
- * @str: input string
- * @s: start index
- * @e: end index
- * Return: 1 if true, 0 if false
- */
-int isPalRec(char str[], int s, int e)
-{
-	if (s == e)
+	if (*s2 == '\0' && *s1 == '\0')
 		return (1);
-	if (str[s] != str[e])
+
+	if (*s2 == '*' && *(s2 + 1) != '\0' && *s1 == '\0')
 		return (0);
-	if (s < e + 1)
-		return (isPalRec(str, s + 1, e - 1));
-	return (1);
-}
 
-/**
- * is_palindrome - returns 1 if a string is a palindrome and 0 if not
- * @s: input string
- * Return: 1 if true, 0 if false
- */
-int is_palindrome(char *s)
-{
-	int len = _strlen_recursion(s) - 1;
+	if (*s1 == *s2)
+		return (wildcmp(s1 + 1, s2 + 1));
 
-	return (isPalRec(s, 0, len));
+	if (*s2 == '*')
+		return (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2));
+
+	return (0);
 }
